@@ -2,7 +2,7 @@
 
 import click
 import board
-import adafruit_dotstar as dotstar
+from adafruit_dotstar import DotStar
 
 @click.command()
 @click.option('--on/--off', required=True, default=True, help='Flag to turn lights on or off.')
@@ -11,7 +11,7 @@ def handleLights(on):
     BRIGHTNESS = 1.0 if on else 0.0
     click.echo(f'Brightness: {BRIGHTNESS}')
 
-    dots = dotstar.DotStar(board.SCK, board.MOSI, 30, BRIGHTNESS)
+    dots = DotStar(board.SCK, board.MOSI, 30, brightness=BRIGHTNESS)
     dots.fill((255, 255, 255))
     dots.show()
     click.echo('On' if on else 'Off')
