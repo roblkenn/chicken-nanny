@@ -5,6 +5,7 @@ adafruit-circuitpython-lis3dh==5.1.10
 adafruit-circuitpython-pypixelbuf==2.2.5
 Adafruit-PlatformDetect==3.13.4
 Adafruit-PureIO==1.1.9
+click==8.0.1
 colorzero==2.0
 gpiozero==1.6.2
 pyftdi==0.53.1

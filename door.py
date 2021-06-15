@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+
 from gpiozero import Motor
 import click
+from time import sleep
 
 @click.command()
 @click.option('--open/--close', required=True, default=True, help='Flag to open of close door.')
@@ -14,7 +17,7 @@ def handleDoor(open):
     else:
         motor.backward()
 
-    handleStop()
+    handleStop(motor)
 
     click.echo("Opened" if open else "Closed")
 

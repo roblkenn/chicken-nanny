@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import click
 import board
 import adafruit_dotstar as dotstar
