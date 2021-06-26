@@ -30,19 +30,19 @@ class Motor:
         self.backwardPin.value = False
 
 @click.command()
-@click.option('--open/--close', required=True, default=True, help='Flag to open of close door.')
-def handleDoor(open):
+@click.option('--be-free/--close', required=True, default=True, help='Flag to open of close door.')
+def handleDoor(be_free):
     """Program that opens or closes the chicken door."""
     doorMotor = Motor(board.D20, board.D21)
     sensor = INA219(I2C(board.SCL, board.SDA))
 
-    if open:
+    if be_free:
         doorMotor.forward()
     else:
         doorMotor.backward()
 
     handleStop(doorMotor, sensor)
-    updateStatus(open)
+    updateStatus(be_free)
 
 def handleStop(doorMotor, sensor):
     sleep(0.5)
@@ -50,10 +50,11 @@ def handleStop(doorMotor, sensor):
         continue
     doorMotor.stop()
 
-def updateStatus(open):
+def updateStatus(be_free):
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    with open(os.path.join(dir_path, 'doorStatus'), 'w') as f:
-        f.write('open' if open else 'closed')
+    filepath = os.path.join(dir_path, 'doorStatus')
+    with open(filepath, 'w') as f:
+        f.write('open' if be_free else 'closed')
 
 
 if __name__ == '__main__':
