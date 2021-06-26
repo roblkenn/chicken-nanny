@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 from gpiozero import Button
 
@@ -9,7 +11,7 @@ def pollButton():
         button.wait_for_press()
         isOpen = getStatus()
         scriptPath = os.path.join(dir_path, 'door.py')
-        os.system(f"{scriptPath} --{'close' if isOpen else 'open'}")
+        os.system(f"{scriptPath} --{'close' if isOpen else 'be-free'}")
 
 
 def getStatus():
