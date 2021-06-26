@@ -11,7 +11,7 @@ def handleLights(on):
     BRIGHTNESS = 1.0 if on else 0.0
     click.echo(f'Brightness: {BRIGHTNESS}')
 
-    dots = DotStar(board.SCK, board.MOSI, 30, brightness=BRIGHTNESS)
+    dots = DotStar(board.SCLK, board.MOSI, 30, brightness=BRIGHTNESS)
     dots.fill((255, 255, 255))
     dots.show()
     click.echo('On' if on else 'Off')
