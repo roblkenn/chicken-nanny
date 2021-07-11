@@ -33,7 +33,7 @@ class Motor:
 @click.option('--be-free/--close', required=True, default=True, help='Flag to open of close door.')
 def handleDoor(be_free):
     """Program that opens or closes the chicken door."""
-    doorMotor = Motor(board.D20, board.D21)
+    doorMotor = Motor(board.D21, board.D20)
     sensor = INA219(I2C(board.SCL, board.SDA))
 
     if be_free:
@@ -46,7 +46,7 @@ def handleDoor(be_free):
 
 def handleStop(doorMotor, sensor):
     sleep(0.5)
-    while abs(sensor.current) < 200:
+    while abs(sensor.current) < 500:
         continue
     doorMotor.stop()
 
