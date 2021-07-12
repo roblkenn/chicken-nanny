@@ -4,8 +4,6 @@ from datetime import timedelta, timezone
 import datetime
 from suntime import Sun
 import os
-import shlex
-import subprocess
 
 LATITUDE = 41.99
 LONGITUDE = 83.43
@@ -38,28 +36,27 @@ if shouldUseLights:
     lightsOnTime = sunsetTime - timedelta(minutes=30)
 
     if currentTime >= lightsOnTime and currentTime < lightsOffTime:
-        os.system('/home/pi/chicken-nanny/lights.py --on')
+        os.system('/home/pi/chicken-nanny/lights.py --on &')
     elif currentTime < lightsOnTime:
-        lightsOnCommand = f'heliocron --latitude={LATITUDE}N --longitude={LONGITUDE}W wait --event sunset --offset -00:30 && /home/pi/chicken-nanny/lights.py --on'
-        subprocess.Popen(shlex.split(lightsOnCommand), start_new_session=True)
-    
+        lightsOnCommand = f'heliocron --latitude {LATITUDE}N --longitude {LONGITUDE}W wait --event sunset --offset -00:30 && /home/pi/chicken-nanny/lights.py --on &'
+        os.system(lightsOnCommand)
+
     if currentTime >= lightsOffTime:
-        os.system('/home/pi/chicken-nanny/lights.py --off')
+        os.system('/home/pi/chicken-nanny/lights.py --off &')
     elif currentTime < lightsOffTime:
-        lightsOffCommand = f'heliocron --latitude={LATITUDE}N --longitude={LONGITUDE}W wait --event sunset --offset {sunsetOffset.seconds//3600:02d}:{(sunsetOffset.seconds//60)%60:02d} && /home/pi/chicken-nanny/lights.py --off'
-        subprocess.Popen(shlex.split(lightsOffTime), start_new_session=True)
+        lightsOffCommand = f'heliocron --latitude {LATITUDE}N --longitude {LONGITUDE}W wait --event sunset --offset {sunsetOffset.seconds//3600:02d}:{(sunsetOffset.seconds//60)%60:02d} && /home/pi/chicken-nanny/lights.py --off &'
+        os.system(lightsOffCommand)
 
 doorCloseTime = sunsetTime + timedelta(minutes=15)
 
 if currentTime >= sunriseTime and currentTime < doorCloseTime:
-    os.system('/home/pi/chicken-nanny/door.py --be-free')
+    os.system('/home/pi/chicken-nanny/door.py --be-free &')
 elif currentTime < sunriseTime:
-    doorOpenCommand = f'heliocron --latitude={LATITUDE}N --longitude={LONGITUDE}W wait --event sunrise && /home/pi/chicken-nanny/door.py --be-free'
-    subprocess.Popen(shlex.split(doorOpenCommand), start_new_session=True)
+    doorOpenCommand = f'heliocron --latitude {LATITUDE}N --longitude {LONGITUDE}W wait --event sunrise && /home/pi/chicken-nanny/door.py --be-free &'
+    os.system(doorOpenCommand)
 
 if currentTime >= doorCloseTime:
-    os.system('/home/pi/chicken-nanny/door.py --close')
+    os.system('/home/pi/chicken-nanny/door.py --close &')
 elif currentTime < doorCloseTime:
-    doorCloseCommand = f'heliocron --latitude {LATITUDE}N --longitude {LONGITUDE}W wait --event sunset --offset 00:15 && /home/pi/chicken-nanny/door.py --close'
-    print(shlex.split(doorCloseCommand))
-    subprocess.Popen(shlex.split(doorCloseCommand), shell=True)
+    doorCloseCommand = f'heliocron --latitude {LATITUDE}N --longitude {LONGITUDE}W wait --event sunset --offset 00:15 && /home/pi/chicken-nanny/door.py --close &'
+    os.system(doorCloseCommand)
