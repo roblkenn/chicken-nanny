@@ -1,10 +1,8 @@
 Adafruit-Blinka==6.10.2
 adafruit-circuitpython-busdevice==5.0.6
 adafruit-circuitpython-dotstar==2.0.4
-adafruit-circuitpython-ina219==3.4.9
 adafruit-circuitpython-lis3dh==5.1.10
 adafruit-circuitpython-pypixelbuf==2.2.5
-adafruit-circuitpython-register==1.9.5
 Adafruit-PlatformDetect==3.13.4
 Adafruit-PureIO==1.1.9
 click==8.0.1
@@ -12,6 +10,8 @@ colorzero==2.0
 gpiozero==1.6.2
 pyftdi==0.53.1
 pyserial==3.5
+python-crontab==2.5.1
 python-dateutil==2.8.1
 pyusb==1.1.1
 six==1.16.0
+suntime==1.2.5
