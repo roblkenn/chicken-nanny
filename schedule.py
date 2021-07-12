@@ -12,8 +12,8 @@ sun = Sun(LATITUDE, -LONGITUDE)
 
 # currentDate = datetime.datetime(2021, 12, 22)
 currentDate = datetime.date.today()
-sunriseTime = sun.get_sunrise_time(currentDate)
-sunsetTime = sun.get_sunset_time(currentDate)
+sunriseTime = sun.get_local_sunrise_time(currentDate)
+sunsetTime = sun.get_local_sunset_time(currentDate)
 
 # Workaround for a crappy library
 if sunsetTime < sunriseTime:
@@ -30,7 +30,8 @@ print(f'Should Use Lights: {shouldUseLights}')
 print(f'Offset from Sunset: {sunsetOffset}')
 print(f'Offset formatted for heliocron: {sunsetOffset.seconds//3600:02d}:{(sunsetOffset.seconds//60)%60:02d}')
 
-currentTime = datetime.datetime.now(timezone.utc)
+currentTime = datetime.datetime.now()
+print(currentTime)
 
 if shouldUseLights:
     lightsOnTime = sunsetTime - timedelta(minutes=30)
