@@ -36,13 +36,17 @@ def handleDoor(be_free):
     doorMotor = Motor(board.D21, board.D20)
     sensor = INA219(I2C(board.SCL, board.SDA))
 
-    if be_free:
-        doorMotor.forward()
-    else:
-        doorMotor.backward()
+    alreadyOpen = getStatus()
 
-    handleStop(doorMotor, sensor)
-    updateStatus(be_free)
+    if be_free and not alreadyOpen:
+        doorMotor.forward()
+        handleStop(doorMotor, sensor)
+        updateStatus(be_free)
+    elif alreadyOpen and not be_free:
+        doorMotor.backward()
+        handleStop(doorMotor, sensor)
+        updateStatus(be_free)
+
 
 def handleStop(doorMotor, sensor):
     sleep(0.5)
@@ -55,6 +59,13 @@ def updateStatus(be_free):
     filepath = os.path.join(dir_path, 'doorStatus')
     with open(filepath, 'w') as f:
         f.write('open' if be_free else 'closed')
+
+def getStatus():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    filepath = os.path.join(dir_path, 'doorStatus')
+    with open(filepath, 'r') as f:
+        status = f.read()
+    return status == 'open'
 
 
 if __name__ == '__main__':
