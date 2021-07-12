@@ -61,4 +61,5 @@ if currentTime >= doorCloseTime:
     os.system('/home/pi/chicken-nanny/door.py --close')
 elif currentTime < doorCloseTime:
     doorCloseCommand = f'heliocron --latitude={LATITUDE}N --longitude={LONGITUDE}W wait --event sunset --offset 00:15 && /home/pi/chicken-nanny/door.py --close'
-    subprocess.Popen(shlex.split(doorCloseCommand), shell=True, start_new_session=True)
+    print(shlex.split(doorCloseCommand))
+    # subprocess.Popen(shlex.split(doorCloseCommand), shell=True, start_new_session=True)
