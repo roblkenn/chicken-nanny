@@ -30,8 +30,9 @@ print(f'Should Use Lights: {shouldUseLights}')
 print(f'Offset from Sunset: {sunsetOffset}')
 print(f'Offset formatted for heliocron: {sunsetOffset.seconds//3600:02d}:{(sunsetOffset.seconds//60)%60:02d}')
 
-currentTime = datetime.datetime.now()
-print(currentTime)
+utc_dt = datetime.datetime.now(timezone.utc)
+currentTime = utc_dt.astimezone()
+print(f'Current Time: {currentTime}')
 
 if shouldUseLights:
     lightsOnTime = sunsetTime - timedelta(minutes=30)
