@@ -50,7 +50,7 @@ def handleDoor(be_free):
 
 def handleStop(doorMotor, sensor):
     sleep(0.5)
-    while abs(sensor.current) < 500:
+    while abs(sensor.current) < 750:
         continue
     doorMotor.stop()
 
