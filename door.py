@@ -48,8 +48,9 @@ def handleDoor(be_free):
 
 
 def handleStop(doorMotor, sensor):
-    sleep(0.5)
+    sleep(5)
     while abs(sensor.current) < 600:
+        print(abs(sensor.current))
         continue
     print('Ram detected! Stopping Motor...')
     doorMotor.stop()
