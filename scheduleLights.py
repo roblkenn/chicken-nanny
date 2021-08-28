@@ -35,14 +35,11 @@ currentTime = utc_dt.astimezone()
 print(f'Current Time: {currentTime}')
 
 if shouldUseLights:
-    lightsOnTime = sunsetTime - timedelta(minutes=30)
-    cron = CronTab(user='pi')
-    cron.remove_all('lights.py')
+    with CronTab(user='pi') as cron:
+        cron.remove_all(comment='lights')
 
-    lightsOnJob = cron.new(command=f'heliocron --latitude {LATITUDE}N --longitude {LONGITUDE}W wait --event sunset --offset -00:30 && /home/pi/chicken-nanny/lights.py --on')
-    lightsOnJob.setall('0 15 * * *')
+        lightsOnJob = cron.new(comment='lights', command=f'heliocron --latitude {LATITUDE}N --longitude {LONGITUDE}W wait --event sunset --offset -00:30 && /home/pi/chicken-nanny/lights.py --on')
+        lightsOnJob.setall('0 15 * * *')
 
-    lightsOffJob = cron.new(command=f'heliocron --latitude {LATITUDE}N --longitude {LONGITUDE}W wait --event sunset --offset {sunsetOffset.seconds//3600:02d}:{(sunsetOffset.seconds//60)%60:02d} && /home/pi/chicken-nanny/lights.py --off')
-    lightsOffJob.setall('0 15 * * *')
-
-    cron.write()
+        lightsOffJob = cron.new(comment='lights', command=f'heliocron --latitude {LATITUDE}N --longitude {LONGITUDE}W wait --event sunset --offset {sunsetOffset.seconds//3600:02d}:{(sunsetOffset.seconds//60)%60:02d} && /home/pi/chicken-nanny/lights.py --off')
+        lightsOffJob.setall('0 15 * * *')
