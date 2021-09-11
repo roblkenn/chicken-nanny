@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import os
 from gpiozero import Button
+import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
