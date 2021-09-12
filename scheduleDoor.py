@@ -27,8 +27,8 @@ print(f'Door Close: {doorCloseTime.minute} {doorCloseTime.hour} * * *')
 with CronTab(user='pi') as cron:
     cron.remove_all(comment='door')
 
-    doorOpenJob = cron.new(comment='door', command=f'python3 /home/pi/chicken-nanny/lights.py --on')
+    doorOpenJob = cron.new(comment='door', command=f'python3 /home/pi/chicken-nanny/door.py --be-free')
     doorOpenJob.setall(f'{doorOpenTime.minute} {doorOpenTime.hour} * * *')
 
-    doorCloseJob = cron.new(comment='door', command=f'python3 /home/pi/chicken-nanny/lights.py --off')
+    doorCloseJob = cron.new(comment='door', command=f'python3 /home/pi/chicken-nanny/door.py --close')
     doorCloseJob.setall(f'{doorCloseTime.minute} {doorCloseTime.hour} * * *')
