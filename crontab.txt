@@ -1,7 +1,5 @@
 @reboot python3 /home/pi/chicken-nanny/manualDoor.py
 @reboot python3 /home/pi/chicken-nanny/scheduleLights.py
-0 5 * * * heliocron --latitude 41.99N --longitude 83.43W wait --event sunrise && /home/pi/chicken-nanny/door.py --be-free
-0 15 * * * heliocron --latitude 41.99N --longitude 83.43W wait --event sunset --offset 00:15 && /home/pi/chicken-nanny/door.py --close
-#0 7 * * * python3 /home/pi/chicken-nanny/door.py --be-free
-#15 21 * * * python3 /home/pi/chicken-nanny/door.py --close
-0 12 * * * python3 /home/pi/chicken-nanny/scheduleLights.py
+@reboot python3 /home/pi/chicken-nanny/scheduleDoor.py
+0 3 * * * python3 /home/pi/chicken-nanny/scheduleLights.py
+0 2 * * * python3 /home/pi/chicken-nanny/scheduleDoor.py
