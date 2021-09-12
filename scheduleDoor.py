@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from datetime import timedelta
-import datetime
 from suntime import Sun
 from crontab import CronTab
 
@@ -28,8 +27,8 @@ print(f'Door Close: {doorCloseTime.minute} {doorCloseTime.hour} * * *')
 with CronTab(user='pi') as cron:
     cron.remove_all(comment='door')
 
-    doorOpenJob = cron.new(comment='door', command=f'/home/pi/chicken-nanny/lights.py --on')
+    doorOpenJob = cron.new(comment='door', command=f'python3 /home/pi/chicken-nanny/lights.py --on')
     doorOpenJob.setall(f'{doorOpenTime.minute} {doorOpenTime.hour} * * *')
 
-    doorCloseJob = cron.new(comment='door', command=f'/home/pi/chicken-nanny/lights.py --off')
+    doorCloseJob = cron.new(comment='door', command=f'python3 /home/pi/chicken-nanny/lights.py --off')
     doorCloseJob.setall(f'{doorCloseTime.minute} {doorCloseTime.hour} * * *')

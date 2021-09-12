@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from datetime import timedelta
-import datetime
 from suntime import Sun
 from crontab import CronTab
 
@@ -31,8 +30,8 @@ with CronTab(user='pi') as cron:
     cron.remove_all(comment='lights')
 
     if shouldUseLights:
-        lightsOnJob = cron.new(comment='lights', command=f'/home/pi/chicken-nanny/lights.py --on')
+        lightsOnJob = cron.new(comment='lights', command=f'python3 /home/pi/chicken-nanny/lights.py --on')
         lightsOnJob.setall(f'{lightsOnTime.minute} {lightsOnTime.hour} * * *')
 
-        lightsOffJob = cron.new(comment='lights', command=f'/home/pi/chicken-nanny/lights.py --off')
+        lightsOffJob = cron.new(comment='lights', command=f'python3 /home/pi/chicken-nanny/lights.py --off')
         lightsOffJob.setall(f'{lightsOffTime.minute} {lightsOffTime.hour} * * *')
