@@ -16,9 +16,9 @@ sunsetTime = sun.get_local_sunset_time()
 if sunsetTime < sunriseTime:
     sunsetTime = sunsetTime + timedelta(days=1)
 
-lightsOnTime = sunsetTime - timedelta(minutes=15)
-lightsOffTime = sunriseTime + timedelta(hours=14)
-shouldUseLights = lightsOffTime > sunsetTime
+lightsOnTime = sunsetTime - timedelta(hours=14)
+lightsOffTime = sunriseTime + timedelta(minutes=30)
+shouldUseLights = lightsOnTime < sunriseTime
 
 print(f'Sunrise: {sunriseTime}')
 print(f'Sunset: {sunsetTime}')
