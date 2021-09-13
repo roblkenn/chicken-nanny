@@ -1,5 +1,5 @@
 @reboot python3 /home/pi/chicken-nanny/manualDoor.py
 @reboot python3 /home/pi/chicken-nanny/scheduleLights.py
 @reboot python3 /home/pi/chicken-nanny/scheduleDoor.py
-0 3 * * * python3 /home/pi/chicken-nanny/scheduleLights.py
-0 2 * * * python3 /home/pi/chicken-nanny/scheduleDoor.py
+0 0 * * * python3 /home/pi/chicken-nanny/scheduleLights.py
+5 0 * * * python3 /home/pi/chicken-nanny/scheduleDoor.py

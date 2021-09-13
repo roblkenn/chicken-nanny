@@ -45,6 +45,8 @@ def handleDoor(be_free):
     elif alreadyOpen and not be_free:
         doorMotor.backward()
         handleStop(doorMotor, sensor)
+    else:
+        print(f'Already {"open" if alreadyOpen else "closed"}')
 
 
 def handleStop(doorMotor, sensor):
