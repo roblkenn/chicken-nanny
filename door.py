@@ -37,14 +37,15 @@ def handleDoor(be_free):
     sensor = INA219(I2C(board.SCL, board.SDA))
 
     alreadyOpen = getStatus()
-    updateStatus(be_free)
 
     if be_free and not alreadyOpen:
         doorMotor.forward()
         handleStop(doorMotor, sensor)
+        updateStatus(be_free)
     elif alreadyOpen and not be_free:
         doorMotor.backward()
         handleStop(doorMotor, sensor)
+        updateStatus(be_free)
     else:
         print(f'Already {"open" if alreadyOpen else "closed"}')
 
