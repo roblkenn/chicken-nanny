@@ -68,6 +68,7 @@ def getStatus():
     filepath = os.path.join(dir_path, 'doorStatus')
     with open(filepath, 'r') as f:
         status = f.read()
+    print(f'Status: {status}')
     return status == 'open'
 
 
